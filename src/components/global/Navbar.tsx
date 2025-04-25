@@ -44,7 +44,7 @@ const Navbar = () => {
         <aside className="flex items-center justify-end md:col-span-2 gap-2 col-span-6">
             <Link href="/dashboard">
             <Button variant="default" className="cursor-pointer hover:opacity-90">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-white">
                     {/* need to wire up a user */}
                     <LayoutDashboard /> <span>Dashboard</span> 
                 </div>

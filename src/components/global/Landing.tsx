@@ -10,7 +10,7 @@ const Landing = () => {
       <section className="min-h-[90vh] flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
         <div className="max-w-4xl mx-auto z-10">
           <div className="flex gap-4 justify-center">
-            <Button variant="default" size="lg" className="text-sm px-6 hover:opacity-90 cursor-pointer">
+            <Button variant="default" size="lg" className="text-sm px-6 hover:opacity-90 cursor-pointer text-white">
               Get Started <ArrowRight className="ml-2 size-4" />
             </Button>
           </div>

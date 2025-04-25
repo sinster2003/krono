@@ -7,6 +7,7 @@ import { z } from "zod"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from "../ui/form"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import ProfilePicture from "@/components/ui/ProfilePicture";
 
 const FormSection = () => {
     const form = useForm<z.infer<typeof formSchema>>({
@@ -26,6 +27,14 @@ const FormSection = () => {
             <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold mb-2">Update Profile</h2>
                 <p className="text-muted-foreground">Welcome back, you are free to update your profile</p>
+            </div>
+
+            <div className="flex flex-col gap-1 mb-6">
+                <p className="text-muted-foreground">Profile Picture</p>
+                <div className="flex w-full items-center justify-center">
+                    {/* something like this - <ProfilePicture userImage="https://ucarecdn.com/6e29ebfe-adef-409e-9303-8fce18d81e52/"/> */}
+                    <ProfilePicture userImage=""/>
+                </div>
             </div>
 
             <Form {...form}>
@@ -69,7 +78,7 @@ const FormSection = () => {
 
                     <Button 
                         type="submit" 
-                        className="w-full h-11 bg-primary hover:opacity-90 transition-colors text-muted-foreground cursor-pointer"
+                        className="w-full h-11 bg-primary hover:opacity-90 transition-colors text-muted-foreground cursor-pointer text-white"
                     >
                         Save Changes
                     </Button>

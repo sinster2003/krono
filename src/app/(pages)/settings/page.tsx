@@ -11,7 +11,6 @@ const Settings = async () => {
               <h1 className="text-3xl font-bold mb-1">Settings</h1>
             </div>
           </header>
-          
           <div className="flex w-full justify-center items-center">
             <FormSection />
           </div>
