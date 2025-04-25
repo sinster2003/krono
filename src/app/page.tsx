@@ -1,8 +1,9 @@
-import Navbar from "../components/global/Navbar";
+import { Landing, Navbar } from "../components/global";
 
 const Home = () => {
   return <main>
-    <Navbar/>
+    <Navbar />
+    <Landing />
   </main>
 }
 

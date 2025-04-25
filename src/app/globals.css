@@ -57,11 +57,27 @@
   }
 }
 
-@theme {
-  --color-primary: hsl(var(--primary));
-}
-
 @layer utilities {
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+
+  .bg-primary\/5 {
+    background-color: hsl(var(--primary) / 0.05);
+  }
+
+  .bg-primary\/10 {
+    background-color: hsl(var(--primary) / 0.1);
+  }
+
+  .bg-primary\/20 {
+    background-color: hsl(var(--primary) / 0.2);
+  }
+
+  .text-primary, .hover\:text-primary:hover {
+    color: hsl(var(--primary)) !important;
+  }
+
   @keyframes spin-clockwise {
     from {
       transform: rotate(0deg);
