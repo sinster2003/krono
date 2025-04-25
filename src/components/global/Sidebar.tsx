@@ -9,8 +9,8 @@ const Sidebar = () => {
   const pathName = usePathname();
   return (
     <>
-          {/* Sidebar */}
-          <aside className="w-64 border-r px-6 py-8 hidden md:block">
+        {/* Sidebar */}
+        <aside className="w-64 border-r px-6 py-8 hidden md:block">
           <Link href="/" className="flex items-center gap-2 mb-8">
             <Settings className="h-6 w-6 text-primary spin-clockwise" />
             <h2 className="font-semibold text-lg">Krono</h2>
