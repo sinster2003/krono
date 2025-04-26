@@ -1,5 +1,7 @@
 import Landing from "./Landing";
 import Navbar from "./Navbar";
-import ThemeProvider from "./ThemeProvider";
+import Sidebar from "./Sidebar";
+import SidebarItem from "./SidebarItem";
+import FormSection from "./FormSection";
 
-export { Landing, Navbar, ThemeProvider };
+export { Landing, Navbar, Sidebar, SidebarItem, FormSection };

@@ -1,4 +1,4 @@
-import Sidebar from "@/components/global/Sidebar"
+import { Sidebar } from "@/components/global/"
 import { ReactNode } from "react"
 
 const Layout = ({ children }: { children: ReactNode }) => {

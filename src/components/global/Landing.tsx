@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from "../ui/button"
-import { Settings, ArrowRight, Zap, Shield, BarChart3 } from 'lucide-react'
+import { ArrowRight, Zap, Shield, BarChart3 } from 'lucide-react'
 import FeatureCard from '../ui/FeatureCard'
 
 const Landing = () => {

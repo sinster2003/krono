@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "../components/global"
+import ThemeProvider from "@/providers/ThemeProvider";
 import ModeToggle from "@/components/ui/ModeToggle";
+import ClerkProvider from "@/providers/ClerkProvider";
+import UserButtonContainer from "@/components/ui/UserButtonContainer";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -19,20 +21,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${dmSans.className} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${dmSans.className} antialiased`}
         >
-          {children}
-          <ModeToggle />
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <UserButtonContainer/>
+            <ModeToggle />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

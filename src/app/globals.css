@@ -57,6 +57,10 @@
   }
 }
 
+@theme {
+  --color-background: hsl(var(--background))
+}
+
 @layer utilities {
   .bg-primary {
     background-color: hsl(var(--primary));

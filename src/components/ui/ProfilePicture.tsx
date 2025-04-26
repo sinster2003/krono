@@ -6,19 +6,58 @@ import { useTheme } from 'next-themes';
 import { Button } from './button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { fetchUserImage } from '@/actions/fetch-image';
+import { useUser } from '@clerk/nextjs';
+import { removeImage } from '@/actions/remove-image';
+import { addImage } from '@/actions/add-image';
 
-const ProfilePicture = ({ userImage } : { userImage: string }) => {
+const ProfilePicture = () => {
   const { theme } = useTheme();
-  const router = useRouter();
+  const { user, isLoaded } = useUser();
+  const [userImage, setUserImage] = useState<string | null>(null);
 
-  const removeProfile = () => {
+  useEffect(() => {
+    // if no user return
+    if (!user) return;
+
+    async function fetchImage() {
+      try {
+        // server action to fetch image from db
+        const image = await fetchUserImage(user?.id || "");
+        setUserImage(image);
+      } 
+      catch (error) {
+        console.log(error);
+        // toast
+      }
+    }
+
+    fetchImage();
+  }, [user]);
+
+  const removeProfile = async () => {
     try {
         // remove userImage from the current logged In user
-        router.refresh();
+        // server action
+        const isRemoved = await removeImage(user?.id || "");
+        if(isRemoved) {
+            // remove from uploadcare if uploaded
+            // removeUploadCareImage() -> use api
+
+            // successful toast
+            console.log(isRemoved);
+            setUserImage(null);
+        }
     }
     catch(error) {
         console.log(error);
+        // unsuccessful toast
     }
+  }
+
+  if(!isLoaded && !user) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -34,8 +73,8 @@ const ProfilePicture = ({ userImage } : { userImage: string }) => {
                 width={200}
                 className="mb-4"
             />
-            <Button variant="default" className="text-white bg-primary text-center" onClick={removeProfile}>
-                Remove Image
+            <Button variant="default" className="text-white bg-primary text-center cursor-pointer hover:bg-primary/20" onClick={removeProfile}>
+                Remove Profile
             </Button>
         </div>
         :
@@ -45,14 +84,27 @@ const ProfilePicture = ({ userImage } : { userImage: string }) => {
             pubkey={process.env.NEXT_PUBLIC_UPLOADCARE_PUB_KEY || ""}
             imgOnly={true}
             multipleMax={1}
-            onFileUploadSuccess={(e) => {
-                // add the profile pic to current logged in user
+            onDoneClick={async  (e) => {
                 try {
-                    console.log(e.cdnUrl);
-                    router.refresh();
+                    if(e.isSuccess) {
+                        // add the single entry into the user db
+                        // server action to add image into db
+                        const isAdded = await addImage(user?.id || "", e.allEntries?.[0].cdnUrl);
+                        if(isAdded) {
+                            // successful toast
+                            setUserImage(e.allEntries?.[0].cdnUrl);
+                        }
+                        else {
+                            // unsuccesful toast
+                        }
+                    }
+                    else {
+                        // unsuccessful toast
+                    }
                 }
                 catch(error) {
                     console.log(error);
+                    // unsuccessful toast
                 }
             }}
         />

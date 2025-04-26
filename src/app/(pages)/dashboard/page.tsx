@@ -35,7 +35,7 @@ const Dashboard = () => {
             <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
             <div className="space-y-4">
               {[1, 2, 3].map((_, i) => (
-                <div key={i} className="flex items-center justify-between p-4 bg-background rounded-lg">
+                <div key={i} className="flex items-center justify-between p-4 rounded-lg">
                   <div className="flex items-center gap-4">
                   <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center">
                     <Activity className="h-5 w-5 text-primary" />

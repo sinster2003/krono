@@ -34,33 +34,33 @@ export function ModeToggle() {
 
     return (
         <div className="fixed bottom-4 left-4">
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="focus:outline-none focus-visible:ring-0 border">
-                    {currentTheme === "dark" ? (
-                        <Moon className="h-4 w-4" />
-                    ) : currentTheme === "light" ? (
-                        <Sun className="h-4 w-4" />
-                    ) : (
-                        <Laptop className="h-4 w-4" />
-                    )}
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setTheme("light")} className={theme === "light" ? "bg-primary/20" : "hover:text-primary"}>
-                    <Sun className="h-4 w-4 mr-2" />
-                    Light
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")} className={theme === "dark" ? "bg-primary/20" : "hover:text-primary"}>
-                    <Moon className="h-4 w-4 mr-2" />
-                    Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")} className={theme === "system" ? "bg-primary/20" : "hover:text-primary"}>
-                    <Laptop className="h-4 w-4 mr-2" />
-                    System
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="focus:outline-none focus-visible:ring-0 border">
+                        {currentTheme === "dark" ? (
+                            <Moon className="h-4 w-4" />
+                        ) : currentTheme === "light" ? (
+                            <Sun className="h-4 w-4" />
+                        ) : (
+                            <Laptop className="h-4 w-4" />
+                        )}
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-background">
+                    <DropdownMenuItem onClick={() => setTheme("light")} className={theme === "light" ? "bg-primary/20" : "hover:text-primary"}>
+                        <Sun className="h-4 w-4 mr-2" />
+                        Light
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("dark")} className={theme === "dark" ? "bg-primary/20" : "hover:text-primary"}>
+                        <Moon className="h-4 w-4 mr-2" />
+                        Dark
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("system")} className={theme === "system" ? "bg-primary/20" : "hover:text-primary"}>
+                        <Laptop className="h-4 w-4 mr-2" />
+                        System
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </div>
     )
 }

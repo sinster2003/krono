@@ -3,7 +3,7 @@
 import { BarChart3, Network, Settings, Workflow } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import SidebarItem from './SidebarItem'
+import { SidebarItem } from "./"
 
 const Sidebar = () => {
   const pathName = usePathname();

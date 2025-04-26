@@ -8,8 +8,13 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from "
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import ProfilePicture from "@/components/ui/ProfilePicture";
+import { useUser } from "@clerk/nextjs"
+import { useEffect } from "react"
+import { updateProfile } from "@/actions/update-profile"
 
 const FormSection = () => {
+    const { user, isLoaded } =  useUser();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -18,8 +23,30 @@ const FormSection = () => {
         }
     });
 
-    const formSubmit = (data: z.infer<typeof formSchema>) => {
-        console.log(data.name, data.email);
+    useEffect(() => {
+        // make sure the address comes from authenticated email auth address
+        form.resetField("email", {
+            defaultValue: user?.primaryEmailAddress?.toString()
+        });
+    }, [isLoaded]);
+
+    const formSubmit = async (data: z.infer<typeof formSchema>) => {
+        // server action to update the user name and email
+        try {
+            const isUpdated = await updateProfile(user?.id || "", data);
+
+            if(isUpdated) {
+                // successful toast
+            }
+        }
+        catch(error) {
+            console.log(error);
+            // unsuccessful toast
+        }
+    }
+
+    if(!isLoaded) {
+        return <div>Loading...</div>
     }
 
     return (
@@ -30,10 +57,10 @@ const FormSection = () => {
             </div>
 
             <div className="flex flex-col gap-1 mb-6">
-                <p className="text-muted-foreground">Profile Picture</p>
+                <p className="text-muted-foreground mb-2">Update Profile Picture</p>
                 <div className="flex w-full items-center justify-center">
                     {/* something like this - <ProfilePicture userImage="https://ucarecdn.com/6e29ebfe-adef-409e-9303-8fce18d81e52/"/> */}
-                    <ProfilePicture userImage=""/>
+                    <ProfilePicture />
                 </div>
             </div>
 
@@ -47,9 +74,9 @@ const FormSection = () => {
                                 <FormLabel className="text-foreground/90">Enter your name</FormLabel>
                                 <FormControl>
                                     <Input 
+                                        {...field}
                                         className="h-11 bg-background/50 border focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/20 hover:bg-background/80 transition-colors" 
                                         placeholder="Name" 
-                                        {...field} 
                                     />
                                 </FormControl>
                                 <FormMessage className="text-xs" />
@@ -65,10 +92,11 @@ const FormSection = () => {
                                 <FormLabel className="text-foreground/90">Enter your email</FormLabel>
                                 <FormControl>
                                     <Input 
+                                        {...field}
+                                        disabled={true}
                                         className="h-11 bg-background/50 border focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/20 hover:bg-background/80 transition-colors" 
                                         placeholder="Email" 
-                                        type="email" 
-                                        {...field} 
+                                        type="email"
                                     />
                                 </FormControl>
                                 <FormMessage className="text-xs" />
