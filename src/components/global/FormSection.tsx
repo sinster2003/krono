@@ -9,11 +9,12 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import ProfilePicture from "@/components/ui/ProfilePicture";
 import { useUser } from "@clerk/nextjs"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { updateProfile } from "@/actions/update-profile"
 
 const FormSection = () => {
     const { user, isLoaded } =  useUser();
+    const [isSaving, setIsSaving] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -33,6 +34,8 @@ const FormSection = () => {
     const formSubmit = async (data: z.infer<typeof formSchema>) => {
         // server action to update the user name and email
         try {
+            setIsSaving(true);
+
             const isUpdated = await updateProfile(user?.id || "", data);
 
             if(isUpdated) {
@@ -42,6 +45,9 @@ const FormSection = () => {
         catch(error) {
             console.log(error);
             // unsuccessful toast
+        }
+        finally {
+            setIsSaving(false);
         }
     }
 
@@ -57,8 +63,8 @@ const FormSection = () => {
             </div>
 
             <div className="flex flex-col gap-1 mb-6">
-                <p className="text-muted-foreground mb-2">Update Profile Picture</p>
-                <div className="flex w-full items-center justify-center">
+                <p className="text-muted-foreground">Update Profile Picture</p>
+                <div className="flex w-full items-center justify-center mt-5 mb-2">
                     {/* something like this - <ProfilePicture userImage="https://ucarecdn.com/6e29ebfe-adef-409e-9303-8fce18d81e52/"/> */}
                     <ProfilePicture />
                 </div>
@@ -104,11 +110,11 @@ const FormSection = () => {
                         )}
                     />
 
-                    <Button 
+                    <Button
                         type="submit" 
                         className="w-full h-11 bg-primary hover:opacity-90 transition-colors text-muted-foreground cursor-pointer text-white"
                     >
-                        Save Changes
+                        {isSaving ? "Saving..." : "Save Changes"}
                     </Button>
                 </form>
             </Form>

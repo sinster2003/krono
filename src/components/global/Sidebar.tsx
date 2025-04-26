@@ -17,9 +17,9 @@ const Sidebar = () => {
           </Link>
           <nav className="space-y-2">
             <SidebarItem href="/dashboard" pathName={pathName} icon= {<BarChart3 className="h-4 w-4" />} label="Dashboard"/>
-            <SidebarItem href="/settings" pathName={pathName} icon= {<Settings className="h-4 w-4" />} label="Settings"/>
-            <SidebarItem href="/workflows" pathName={pathName} icon= {<Workflow className="h-4 w-4" />} label="Workflows"/>
             <SidebarItem href="/connections" pathName={pathName} icon= {<Network className="h-4 w-4"/>} label="Connections"/>
+            <SidebarItem href="/workflows" pathName={pathName} icon= {<Workflow className="h-4 w-4" />} label="Workflows"/>
+            <SidebarItem href="/settings" pathName={pathName} icon= {<Settings className="h-4 w-4" />} label="Settings"/>
           </nav>
         </aside>
     </>
