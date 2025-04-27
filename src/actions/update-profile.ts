@@ -1,6 +1,6 @@
 "use server"
 
-import db from "@/lib/db/db";
+import db from "@/lib/db";
 
 interface User {
     name: string;
@@ -18,7 +18,7 @@ export async function updateProfile(clerkId: string, data: User) {
                 name: data.name
             }
         });
-        
+
         return true;
     }
     catch(error) {

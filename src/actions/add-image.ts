@@ -1,6 +1,6 @@
 "use server"
 
-import db from "@/lib/db/db";
+import db from "@/lib/db";
 
 export async function addImage(clerkId: string, cdnUrl: string) {
     try {

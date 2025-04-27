@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { formSchema } from "../lib/formSchema"
+import { formSchema } from "@/lib/schema"
 import { z } from "zod"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from "../ui/form"
 import { Input } from "../ui/input"

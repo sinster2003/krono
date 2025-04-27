@@ -1,5 +1,5 @@
 "use server"
-import db from "@/lib/db/db";
+import db from "@/lib/db";
 
 export async function fetchUserImage(clerkId: string) {
     try {
