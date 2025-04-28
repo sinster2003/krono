@@ -1,3 +1,5 @@
+"use client"
+
 import { useForm } from "react-hook-form"
 import { z } from "zod";
 import { drawerFormSchema } from "@/lib/schema";
@@ -63,7 +65,7 @@ const DrawerForm = () => {
                                 </FormItem>
                             )}
                         />
-                        <div className="w-full flex flex-col gap-3">
+                        <div className="w-full flex flex-col gap-2">
                             <Button variant="outline" type="submit" className="w-full cursor-pointer bg-primary text-white hover:opacity-90">
                                 Submit
                             </Button>

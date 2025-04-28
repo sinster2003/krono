@@ -64,7 +64,7 @@ const WorkflowsCard = ({ id, title, description }: WorkflowsCardProps) => {
               </div>
             </div>
             <div>
-              <h3 className="font-medium text-lg">{title}</h3>
+              <h3 className="font-semibold text-lg">{title}</h3>
               <p className="text-sm text-muted-foreground mt-1">{description}</p>
             </div>
           </div>
