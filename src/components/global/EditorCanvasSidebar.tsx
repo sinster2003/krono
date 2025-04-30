@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader } from "../ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import Image from "next/image"
 import { EditorNode } from "@/store/useEditor"
+import SettingsContent from "./SettingsContent"
 
 const EditorCanvasSidebar = ({ nodes }: { nodes: EditorNode[] }) => {
-    console.log(Object.entries(EditorCanvasCards))
+    
     return (
-        <aside className="w-full border-r p-4">
+        <aside className="w-full p-4">
             <Tabs defaultValue="actions" className="w-full">
                 <TabsList className="w-full gap-2">
                     <TabsTrigger value="actions" className="flex-1">Actions</TabsTrigger>
@@ -15,6 +16,7 @@ const EditorCanvasSidebar = ({ nodes }: { nodes: EditorNode[] }) => {
                 </TabsList>
                 <TabsContent value="actions" className="mt-4 space-y-4">
                     {
+                        // map through the cards and filter them based on type
                         Object.entries(EditorCanvasCards).filter(([key, card]) =>
                             // if there are no nodes in the canvas then only show triggers
                             !nodes.length && card.type === "Trigger" ||
@@ -48,6 +50,9 @@ const EditorCanvasSidebar = ({ nodes }: { nodes: EditorNode[] }) => {
                                 )
                             })
                     }
+                </TabsContent>
+                <TabsContent value="settings">
+                    <SettingsContent />
                 </TabsContent>
             </Tabs>
         </aside>

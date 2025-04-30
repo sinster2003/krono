@@ -9,7 +9,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 
 const EditorCanvasNodeSingle = ({ data }: { data: EditorCanvasCardType }) => {
-    const { nodes, updateSelectedNode } = useEditor();
+    const { nodes, updateSelectedNode, selectedNode } = useEditor();
     const { title, description, type } = data; // destructure data -> data of the node
     const nodeId = useNodeId(); // id of the node
 
@@ -35,7 +35,7 @@ const EditorCanvasNodeSingle = ({ data }: { data: EditorCanvasCardType }) => {
                         updateSelectedNode(currNode);
                     }
                 }}
-                className="relative w-[400px] bg-primary/10"
+                className={`relative w-[400px] bg-primary/10 ${selectedNode?.id === nodeId && "bg-primary/20"}`}
                 style={{
                     borderColor: "#e11d48"
                 }}

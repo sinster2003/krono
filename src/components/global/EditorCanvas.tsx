@@ -33,6 +33,13 @@ const EditorCanvas = () => {
             return;
         }
 
+        // check if the node already exists, if yes do not add it again
+        const isNodeExist = nodes.some((node) => node.type === type);
+
+        if(isNodeExist) {
+            return;
+        }
+
         // if reactFlowInstance is not set, return - reactFlowInstance gives all methods needed to interact with the graph
         if (!reactFlowInstance) {
             return;
@@ -173,7 +180,7 @@ const EditorCanvas = () => {
                 }
             </ResizablePanel>
             <ResizableHandle />
-            <ResizablePanel defaultSize={30} className="border-l">
+            <ResizablePanel defaultSize={40} className="border-l">
                 {
                     isWorkflowLoading
                         ?
@@ -201,6 +208,8 @@ const EditorCanvas = () => {
                             <FlowInstance
                                 nodes={nodes}
                                 edges={edges}
+                                setNodes={setNodes}
+                                setEdges={setEdges}
                             >
                                 <EditorCanvasSidebar nodes={nodes} />
                             </FlowInstance>

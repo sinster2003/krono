@@ -1,6 +1,6 @@
 "use client"
 
-import { EditorNode, EditorEdge } from "@/store/useEditor"
+import useEditor, { EditorNode, EditorEdge } from "@/store/useEditor"
 import { Button } from "../ui/button"
 import { useCallback, useState } from "react"
 import useConnections from "@/store/useConnections"
@@ -8,10 +8,11 @@ import createNodesEdges from "@/actions/create-nodes-edges"
 import { usePathname } from "next/navigation"
 import publishWorkflow from "@/actions/publish-workflow"
 
-const FlowInstance = ({ children, nodes, edges }: { children: React.ReactNode, nodes: EditorNode[], edges: EditorEdge[] }) => {
+const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children: React.ReactNode, nodes: EditorNode[], edges: EditorEdge[], setNodes: (nodes: EditorNode[]) => void, setEdges: (edges: EditorEdge[]) => void }) => {
   const nodeConnections = useConnections();
   const [isFlowPath, setIsFlowPath] = useState([]);
   const pathName = usePathname();
+  const { loadEditor} = useEditor()
  
   const onFlowAutomation = useCallback(async () => {
     try {
@@ -63,6 +64,17 @@ const FlowInstance = ({ children, nodes, edges }: { children: React.ReactNode, n
                 className="text-white bg-primary"
             >
                 Publish
+            </Button>
+            <Button
+                onClick={() => {
+                    setNodes([]);
+                    setEdges([]);
+                    loadEditor([], []); // empty in global state
+                }}
+                disabled={nodes.length < 1}
+                className="text-white bg-primary cursor-pointer"
+            >
+                Reset
             </Button>
         </div>
         {children}

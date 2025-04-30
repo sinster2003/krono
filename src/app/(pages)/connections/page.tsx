@@ -1,4 +1,4 @@
-import ConnectionCard from "@/components/ui/ConnectionCard"
+import ConnectionCard from "@/components/global/ConnectionCard"
 import { ConnectionsList } from "@/lib/constants"
 
 const Connections = () => {
@@ -17,7 +17,7 @@ const Connections = () => {
           {/* Connection Cards */}
           <div className="flex flex-col gap-4">
             {ConnectionsList.map((connection) => (
-                <ConnectionCard key={connection.title} title={connection.title} description={connection.description} imageUrl={connection.image} />
+                <ConnectionCard key={connection.title} title={connection.title} description={connection.description} imageUrl={connection.image} connected={{}} type={connection.title} />
             ))}
           </div>
         </div>

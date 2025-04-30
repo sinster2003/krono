@@ -2,22 +2,31 @@ export const ConnectionsList = [
     {
         title: "Google Drive",
         description: "Connect your google drive to listen to folder changes.",
-        image: "/googleDrive.png"
+        image: "/googleDrive.png",
+        connectionKey: 'googleNode', // key to connect the node
+        alwaysTrue: true, // if true, the node will always be connected
     },
     {
         title: "Notion",
         description: "Create entries in your notion dashboard and automate tasks.",
-        image: "/notion.png"
+        image: "/notion.png",
+        connectionKey: 'notionNode',
+        accessTokenKey: 'accessToken',
     },
     {
         title: "Slack",
         description: "Use slack to send notifications to team members through your own custom bot.",
-        image: "/slack.png"
+        image: "/slack.png",
+        connectionKey: 'slackNode',
+        accessTokenKey: 'slackAccessToken',
+        slackSpecial: true,
     },
     {
         title: "Discord",
         description: "Connect your discord to send notification and messages",
-        image: "/discord.png"
+        image: "/discord.png",
+        connectionKey: 'discordNode',
+        accessTokenKey: 'webhookURL',
     },
 ]
 
