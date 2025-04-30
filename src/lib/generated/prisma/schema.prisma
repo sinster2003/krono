@@ -16,11 +16,25 @@ datasource db {
 
 // user
 model User {
-  id         String   @id @default(uuid())
-  clerkId    String   @unique
+  id         String     @id @default(uuid())
+  clerkId    String     @unique
   name       String?
-  email      String   @unique
+  email      String     @unique
   profilePic String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  workflows  Workflow[]
+}
+
+// Workflows
+model Workflow {
+  id          String   @id @default(uuid())
+  nodes       String?
+  edges       String?
+  name        String
+  flowPath    String
+  publish     Boolean?
+  description String
+  User        User     @relation(fields: [userId], references: [clerkId])
+  userId      String
 }

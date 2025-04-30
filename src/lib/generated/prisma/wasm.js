@@ -127,6 +127,17 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.WorkflowScalarFieldEnum = {
+  id: 'id',
+  nodes: 'nodes',
+  edges: 'edges',
+  name: 'name',
+  flowPath: 'flowPath',
+  publish: 'publish',
+  description: 'description',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -144,7 +155,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Workflow: 'Workflow'
 };
 
 /**

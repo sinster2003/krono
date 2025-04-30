@@ -78,6 +78,14 @@
     background-color: hsl(var(--primary) / 0.2);
   }
 
+  .text-primary\/20 {
+    color: hsl(var(--primary) / 0.2);
+  }
+
+  .fill-primary {
+    color: hsl(var(--primary));
+  }
+
   .text-primary, .hover\:text-primary:hover {
     color: hsl(var(--primary)) !important;
   }

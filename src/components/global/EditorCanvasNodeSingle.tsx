@@ -35,7 +35,10 @@ const EditorCanvasNodeSingle = ({ data }: { data: EditorCanvasCardType }) => {
                         updateSelectedNode(currNode);
                     }
                 }}
-                className="relative max-w-[400px] dark:border-muted-foreground/70"
+                className="relative w-[400px] bg-primary/10"
+                style={{
+                    borderColor: "#e11d48"
+                }}
             >
                 <CardHeader className="flex flex-row items-center gap-4">
                     <div>{logo}</div>
@@ -57,12 +60,12 @@ const EditorCanvasNodeSingle = ({ data }: { data: EditorCanvasCardType }) => {
                     {type}
                 </Badge>
                 <div
-                    className={`absolute left-3 top-4 h-2 w-2 rounded-full ${Math.random() < 0.6 ? "bg-green-500" : Math.random() >= 0.6 && Math.random() < 0.8 ? "bg-orange-500" : "bg-red-500"}`}
+                    className={`absolute left-3 top-4 h-2 w-2 rounded-full bg-green-500`}
                 ></div>
             </Card >
             <CustomHandle
                 type="source"
-                position={Position.Right}
+                position={Position.Bottom}
             />
         </>
     )

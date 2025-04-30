@@ -20,3 +20,34 @@ export const ConnectionsList = [
         image: "/discord.png"
     },
 ]
+
+export const EditorCanvasCards = [
+    {
+        type: "Trigger",
+        title: "Google Drive",
+        description: "Connect with Google drive to trigger actions or to create files and folders.",
+        image: "/googleDrive.png",
+        nodeType: "googleDrive"
+    },
+    {
+        type: "Action",
+        title: "Notion",
+        description: "Create entries directly in notion.",
+        image: "/notion.png",
+        nodeType: "notion"
+    },
+    {
+        type: "Action",
+        title: "Slack",
+        description: "Send a notification to slack",
+        image: "/slack.png",
+        nodeType: "slack"
+    },
+    {
+        type: "Action",
+        title: "Discord",
+        description: "Post messages to your discord server.",
+        image: "/discord.png",
+        nodeType: "discord"
+    }
+]
