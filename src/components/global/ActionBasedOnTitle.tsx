@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 import { Input } from "../ui/input";
 import GoogleFileDetails from "./GoogleFileDetails";
 import GoogleDriveFiles from "./GoogleDriveFiles";
+import ActionButton from "./ActionButton";
 
 export const nodeMapper = {
     "Google Drive": "googleNode",
@@ -16,7 +17,7 @@ export const nodeMapper = {
 
 type titleType = keyof typeof nodeMapper;
 
-const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, slackChannels, selectedSlackChannels }: { state: EditorState, nodeConnection: ConnectionState, googleFile: any, setGoogleFile: (googleFile: any) => void, slackChannels: Option[], selectedSlackChannels: Option[] }) => {
+const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, selectedSlackChannels, setSelectedSlackChannels }: { state: EditorState, nodeConnection: ConnectionState, googleFile: any, setGoogleFile: (googleFile: any) => void, selectedSlackChannels: Option[], setSelectedSlackChannels: (channels: Option[]) => void }) => {
     const { selectedNode } = state;
     const title = selectedNode?.data.title as titleType;
 
@@ -104,7 +105,12 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
                         )
                     }
 
-                    {/* wip: action button */}
+                    <ActionButton
+                        currentService={title}
+                        nodeConnection={nodeConnection}
+                        channels={selectedSlackChannels}
+                        setChannels={setSelectedSlackChannels}
+                    />
                 </div>
             </Card>
         </AccordionContent>

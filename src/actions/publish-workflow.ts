@@ -16,9 +16,9 @@ export default async function publishWorkflow(
             }
         })
 
-        if(response) return true;
+        if(response.publish) return "Workflow published successfully";
 
-        return false;
+        return "Workflow unpublished successfully";
     }
     catch(error) {
         console.log(error);

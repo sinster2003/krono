@@ -29,7 +29,7 @@ const RenderConnectionAccordion = ({ connection }: { connection: connectionType 
             connectedData
             && accessTokenKey
             && connectedData[accessTokenKey]
-        ); // get the access token value from the connection state
+        ); // get the access token value from the connection global state
 
     return (
         <AccordionContent key={title}>

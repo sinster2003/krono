@@ -9,7 +9,7 @@ import ActionBasedOnTitle from "./ActionBasedOnTitle";
 const RenderOutputAccordion = () => {
   const editorState = useEditor();
   const connectionsState = useConnections();
-  const { slackChannels, selectedSlackChannels, googleFile, setGoogleFile } = useKronoStore();
+  const { setSelectedSlackChannels, selectedSlackChannels, googleFile, setGoogleFile } = useKronoStore();
 
   return (
     <div>
@@ -18,8 +18,8 @@ const RenderOutputAccordion = () => {
             nodeConnection={connectionsState}
             googleFile={googleFile}
             setGoogleFile={setGoogleFile}
-            slackChannels={slackChannels}
             selectedSlackChannels={selectedSlackChannels}
+            setSelectedSlackChannels={setSelectedSlackChannels}
         />
     </div>
   )

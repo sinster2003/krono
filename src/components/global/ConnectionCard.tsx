@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const ConnectionCard = ({ imageUrl, title, description, connected, type, canvas }: { imageUrl: string, title: string, description: string, connected: {} & any, type: string, canvas?: boolean }) => {
     return (
-        <div className={`flex justify-between items-center rounded-xl border hover:bg-primary/5 ${canvas ? "p-7" : "p-4"}`}>
+        <div className={`flex justify-between items-center rounded-xl border hover:bg-primary/5 p-7`}>
             <div className="flex flex-col gap-3">
                 <Image
                     src={imageUrl}

@@ -4,18 +4,19 @@ import { create } from "zustand";
 export type ConnectionProviderProps = {
     discordNode: {
         webhookUrl: string;
-        webhookName: ""
+        webhookName: string;
         guildName:string;
         content: string;
     };
 
     googleNode: {}[];
 
+    // wip: types
     notionNode: {
         accessToken: string;
         databaseId: string;
         workspaceName: string;
-        content: string;
+        content: any;
     };
 
     slackNode: {

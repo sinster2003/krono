@@ -5,6 +5,11 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "..
 import { ConnectionsList } from "@/lib/constants";
 import RenderConnectionAccordion from "./RenderConnectionAccordion";
 import RenderOutputAccordion from "./RenderOutputAccordion";
+import { useKronoStore } from "@/store/useKronoStore";
+import { useEffect } from "react";
+import useConnections from "@/store/useConnections";
+import { onConnections } from "@/lib/onConnections";
+import { fetchBotSlackChannels } from "@/lib/fetchBotSlackChannels";
 
 export type connectionType = {
     title: string;
@@ -17,16 +22,32 @@ export type connectionType = {
 }
 
 const SettingsContent = () => {
-    const { selectedNode } = useEditor();
+    const state = useEditor();
+    const { googleFile, setSlackChannels } = useKronoStore();
+    const nodeConnections = useConnections();
 
-    if (!selectedNode?.data.title) {
+    useEffect(() => {
+        if(state) {
+            // sets the connections in the global state by fetching from the database
+            onConnections(state, googleFile, nodeConnections);
+        }
+    }, [state]);
+
+    useEffect(() => {
+        if(nodeConnections.slackNode.slackAccessToken) {
+            // fetching the slack bot channels for the slack connection
+            fetchBotSlackChannels(nodeConnections.slackNode.slackAccessToken, setSlackChannels);
+        }
+    }, [nodeConnections]);
+
+    if (!state.selectedNode?.data.title) {
         return null;
     }
 
     return (
         <div className="flex flex-col gap-4">
             <div className="text-center my-4 text-lg font-bold">
-                {selectedNode?.data.title}
+                {state.selectedNode?.data.title}
             </div>
             <Accordion type="multiple">
                 <AccordionItem value="Options">

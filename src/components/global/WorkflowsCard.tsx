@@ -13,6 +13,7 @@ interface WorkflowsCardProps {
 
 const WorkflowsCard = ({ id, title, description }: WorkflowsCardProps) => {
   const [isActive, setIsActive] = useState(false);
+  // wip: toggle button when clicked should publish the workflow in the database - will do when workflows are traversed
 
   const handleSwitchToggle = (e: React.MouseEvent) => {
     e.preventDefault();
