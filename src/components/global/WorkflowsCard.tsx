@@ -41,7 +41,7 @@ const WorkflowsCard = ({ id, title, description }: WorkflowsCardProps) => {
               <div className="h-10 w-10 bg-primary/20 rounded-full flex items-center justify-center">
                 <Image
                   src="/slack.png"
-                  alt="Google Drive"
+                  alt="Slack"
                   width={20}
                   height={20}
                 />
@@ -49,7 +49,7 @@ const WorkflowsCard = ({ id, title, description }: WorkflowsCardProps) => {
               <div className="h-10 w-10 bg-primary/20 rounded-full flex items-center justify-center">
                 <Image
                   src="/notion.png"
-                  alt="Google Drive"
+                  alt="Notion"
                   width={20}
                   height={20}
                 />
@@ -57,7 +57,7 @@ const WorkflowsCard = ({ id, title, description }: WorkflowsCardProps) => {
               <div className="h-10 w-10 bg-primary/20 rounded-full flex items-center justify-center">
                 <Image
                   src="/discord.png"
-                  alt="Google Drive"
+                  alt="Discord"
                   width={20}
                   height={20}
                 />

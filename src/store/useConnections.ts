@@ -70,7 +70,7 @@ const initialValues: ConnectionProviderProps = {
     }
 }
 
-type ConnectionState = ConnectionProviderProps & {
+export type ConnectionState = ConnectionProviderProps & {
     setGoogleNode: (googleNode: ConnectionProviderProps["googleNode"]) => void,
     setDiscordNode: (discordNode: ConnectionProviderProps["discordNode"]) => void,
     setNotionNode: (notionNode: ConnectionProviderProps["notionNode"]) => void,

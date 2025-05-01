@@ -4,6 +4,7 @@ import useEditor from "@/store/useEditor"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
 import { ConnectionsList } from "@/lib/constants";
 import RenderConnectionAccordion from "./RenderConnectionAccordion";
+import RenderOutputAccordion from "./RenderOutputAccordion";
 
 export type connectionType = {
     title: string;
@@ -39,6 +40,12 @@ const SettingsContent = () => {
                             connection={connection}
                         />
                     )}
+                </AccordionItem>
+                <AccordionItem value="Expected Output">
+                    <AccordionTrigger className="">
+                        Action
+                    </AccordionTrigger>
+                    <RenderOutputAccordion />
                 </AccordionItem>
             </Accordion>
         </div>

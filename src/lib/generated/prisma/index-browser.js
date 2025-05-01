@@ -124,7 +124,51 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   profilePic: 'profilePic',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  localGoogleId: 'localGoogleId',
+  googleResourceId: 'googleResourceId'
+};
+
+exports.Prisma.DiscordWebhookScalarFieldEnum = {
+  id: 'id',
+  webhookId: 'webhookId',
+  url: 'url',
+  name: 'name',
+  guildName: 'guildName',
+  guildId: 'guildId',
+  channelId: 'channelId',
+  userId: 'userId'
+};
+
+exports.Prisma.NotionScalarFieldEnum = {
+  id: 'id',
+  accessToken: 'accessToken',
+  workspaceId: 'workspaceId',
+  databaseId: 'databaseId',
+  workspaceName: 'workspaceName',
+  workspaceIcon: 'workspaceIcon',
+  userId: 'userId'
+};
+
+exports.Prisma.SlackScalarFieldEnum = {
+  id: 'id',
+  appId: 'appId',
+  authedUserId: 'authedUserId',
+  authedUserToken: 'authedUserToken',
+  slackAccessToken: 'slackAccessToken',
+  botUserId: 'botUserId',
+  teamId: 'teamId',
+  teamName: 'teamName',
+  userId: 'userId'
+};
+
+exports.Prisma.ConnectionsScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  discordWebhookId: 'discordWebhookId',
+  notionId: 'notionId',
+  userId: 'userId',
+  slackId: 'slackId'
 };
 
 exports.Prisma.WorkflowScalarFieldEnum = {
@@ -156,6 +200,10 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  DiscordWebhook: 'DiscordWebhook',
+  Notion: 'Notion',
+  Slack: 'Slack',
+  Connections: 'Connections',
   Workflow: 'Workflow'
 };
 

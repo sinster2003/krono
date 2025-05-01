@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 // slack channel type
-type Option = {
+export type Option = {
     value: string;
     label: string;
     disable?: boolean;

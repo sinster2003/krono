@@ -58,7 +58,7 @@ const initialStates: Editor = {
     }
 }
 
-interface EditorState extends Editor {
+export interface EditorState extends Editor {
     loadEditor: (nodes: EditorNode[], edges: EditorEdge[]) => void;
     updateSelectedNode: (node: EditorNode | null) => void;
     updateNodes: (nodes: EditorNode[]) => void;

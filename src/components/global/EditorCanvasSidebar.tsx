@@ -1,5 +1,5 @@
 import { EditorCanvasCards } from "@/lib/constants"
-import { Card, CardContent, CardHeader } from "../ui/card"
+import { Card, CardHeader } from "../ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import Image from "next/image"
 import { EditorNode } from "@/store/useEditor"
@@ -11,8 +11,8 @@ const EditorCanvasSidebar = ({ nodes }: { nodes: EditorNode[] }) => {
         <aside className="w-full p-4">
             <Tabs defaultValue="actions" className="w-full">
                 <TabsList className="w-full gap-2">
-                    <TabsTrigger value="actions" className="flex-1">Actions</TabsTrigger>
-                    <TabsTrigger value="settings" className="flex-1">Settings</TabsTrigger>
+                    <TabsTrigger value="actions" className="flex-1 shadow-none">Actions</TabsTrigger>
+                    <TabsTrigger value="settings" className="flex-1 shadow-none">Settings</TabsTrigger>
                 </TabsList>
                 <TabsContent value="actions" className="mt-4 space-y-4">
                     {
@@ -26,7 +26,7 @@ const EditorCanvasSidebar = ({ nodes }: { nodes: EditorNode[] }) => {
                                     <Card
                                         key={key}
                                         draggable
-                                        className="hover:bg-primary/5 transition-colors cursor-pointer"
+                                        className="hover:bg-primary/5 transition-colors cursor-pointer shadow-none"
                                         onDragStart={(e) => {
                                             e.dataTransfer.setData("application/reactflow", card.nodeType);
                                             e.dataTransfer.effectAllowed = "move";
