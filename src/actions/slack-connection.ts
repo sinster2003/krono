@@ -1,7 +1,9 @@
 "use server"
 
 import db from "@/lib/db";
+import { Option } from "@/store/useKronoStore";
 import { currentUser } from "@clerk/nextjs/server";
+import axios from "axios";
 
 export const onSlackConnect = async (
     app_id: string,
@@ -42,9 +44,9 @@ export const onSlackConnect = async (
                     teamId: team_id,
                     teamName: team_name,
                     connections: {
-                        create: { 
-                            userId: user_id, 
-                            type: 'Slack' 
+                        create: {
+                            userId: user_id,
+                            type: 'Slack'
                         },
                     },
                 }
@@ -68,22 +70,77 @@ export const onSlackConnect = async (
 export const getSlackConnectionUrl = async () => {
     try {
         const user = await currentUser();
-        if(user) {
+        if (user) {
             const slackConnection = await db.slack.findFirst({
                 where: {
                     userId: user?.id
                 }
             })
 
-            if(slackConnection) {
+            if (slackConnection) {
                 return slackConnection;
             }
         }
 
         return null;
     }
-    catch(error) {
+    catch (error) {
         console.log(error);
         false;
-    } 
+    }
+}
+
+
+// sending message to slack channel
+const postMessageInSlackChannel = async (
+    slackAccessToken: string,
+    slackChannel: string,
+    content: string
+): Promise<void> => {
+    try {
+        await axios.post(
+            "https://slack.com/api/chat.postMessage",
+            { channel: slackChannel, text: content },
+            {
+                headers: {
+                    Authorization: `Bearer ${slackAccessToken}`,
+                    "Content-Type": "application/json;charset=utf-8",
+                },
+            }
+        )
+        console.log(`Message posted successfully to channel ID: ${slackChannel}`)
+    } catch (error: any) {
+        console.error(
+            `Error posting message to Slack channel ${slackChannel}:`,
+            error?.response?.data || error.message
+        )
+    }
+}
+
+// posting message to selected slack channels
+export const postMessageToSlack = async (
+    slackAccessToken: string,
+    selectedSlackChannels: Option[],
+    content: string
+): Promise<{ message: string }> => {
+    try {
+    if (!content) return { message: "Content is empty" }
+    if (!selectedSlackChannels?.length) return { message: "Channel not selected" }
+
+    try {
+        selectedSlackChannels
+            .map((channel) => channel?.value)
+            .forEach((channel) => {
+                postMessageInSlackChannel(slackAccessToken, channel, content)
+            })
+    } catch (error) {
+        return { message: "Message could not be sent to Slack" }
+    }
+
+    return { message: "Success" }
+}
+catch(error) {
+    console.log(error);
+    return { message: "Failure"}
+} 
 }

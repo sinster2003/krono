@@ -96,13 +96,20 @@ model Connections {
 
 // Workflows
 model Workflow {
-  id          String   @id @default(uuid())
-  nodes       String?
-  edges       String?
-  name        String
-  flowPath    String
-  publish     Boolean?
-  description String
-  User        User     @relation(fields: [userId], references: [clerkId])
-  userId      String
+  id                String   @id @default(uuid())
+  nodes             String?
+  edges             String?
+  name              String
+  discordTemplate   String?
+  notionTemplate    String?
+  slackTemplate     String?
+  slackChannels     String[]
+  slackAccessToken  String?
+  notionAccessToken String?
+  notionDbId        String?
+  flowPath          String
+  publish           Boolean?
+  description       String
+  User              User     @relation(fields: [userId], references: [clerkId])
+  userId            String
 }
