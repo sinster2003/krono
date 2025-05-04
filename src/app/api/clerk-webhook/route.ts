@@ -17,8 +17,7 @@ export async function POST(req: NextRequest) {
         // db call to save the user
         const isExistingUser = await db.user.findFirst({
             where: {
-                email,
-                clerkId: id
+                email
             }
         });
 
@@ -37,8 +36,7 @@ export async function POST(req: NextRequest) {
             // update the user name and profile image
             await db.user.update({
                 where: {
-                    email,
-                    clerkId: id
+                    email
                 },
                 data: {
                     name: `${first_name} ${last_name}`,

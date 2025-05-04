@@ -9,7 +9,7 @@ import { useKronoStore } from "@/store/useKronoStore";
 import { useEffect } from "react";
 import useConnections from "@/store/useConnections";
 import { onConnections } from "@/lib/onConnections";
-import { fetchBotSlackChannels } from "@/lib/fetchBotSlackChannels";
+import axios from "axios";
 
 export type connectionType = {
     title: string;
@@ -36,7 +36,19 @@ const SettingsContent = () => {
     useEffect(() => {
         if(nodeConnections.slackNode.slackAccessToken) {
             // fetching the slack bot channels for the slack connection
-            fetchBotSlackChannels(nodeConnections.slackNode.slackAccessToken, setSlackChannels);
+            // fetchBotSlackChannels(nodeConnections.slackNode.slackAccessToken, setSlackChannels);
+            try{
+                axios.get(`/api/slack-channel?slackAccessToken=${nodeConnections.slackNode.slackAccessToken}`)
+                .then((res) => {
+                    setSlackChannels(res.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            }
+            catch(error) {
+                console.log(error);
+            }
         }
     }, [nodeConnections]);
 

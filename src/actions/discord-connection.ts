@@ -2,6 +2,7 @@
 
 import db from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
+import axios from "axios";
 
 // this server connects to discords by accessing the webhook id and storing the webhook id if not present
 export const onDiscordConnect = async (
@@ -124,5 +125,23 @@ export const getDiscordConnectionUrl = async () => {
     catch (error) {
         console.log(error);
         return false;
+    }
+}
+
+export const postContentToWebHook = async (content: string, url: string) => {
+    try {
+    console.log(content)
+    if (content != '') {
+      const posted = await axios.post(url, { content })
+      if (posted) {
+        return { message: 'success' }
+      }
+      return { message: 'failed request' }
+    }
+    return { message: 'String empty' }
+    }
+    catch (error) {
+        console.log(error)
+        return { message: 'error' }
     }
 }

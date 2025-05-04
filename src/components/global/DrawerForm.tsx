@@ -9,6 +9,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import useStore from "@/store";
 import { DrawerFooter } from "../ui/drawer";
+import { onCreateWorkflow } from "@/actions/on-create-workflow";
+import { useRouter } from "next/navigation";
 
 const DrawerForm = () => {
     const { setModalData, setModalClose } = useStore();
@@ -20,9 +22,21 @@ const DrawerForm = () => {
         }
     });
 
-    const handleSubmit = (data: z.infer<typeof drawerFormSchema>) => {
-        setModalData(data);
-        console.log(data);
+    const handleSubmit = async (data: z.infer<typeof drawerFormSchema>) => {
+        try {
+            setModalData(data);
+            const workflow = await onCreateWorkflow(data);
+            if(!workflow) {
+                // toast.error("Failed to create workflow"); wip
+                return;
+            }
+
+            // toast.success("Workflow created successfully");
+            setModalClose();
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     return (

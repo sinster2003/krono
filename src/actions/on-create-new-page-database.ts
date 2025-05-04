@@ -8,6 +8,8 @@ export const onCreateNewPageInDatabase = async (databaseId: string, accessToken:
             auth: accessToken
         });
 
+        console.log("DATABASE ID", databaseId);
+
         const response = await notion.pages.create({
             parent: {
                 type: "database_id",
@@ -17,24 +19,24 @@ export const onCreateNewPageInDatabase = async (databaseId: string, accessToken:
                 name: [
                     {
                         text: {
-                            content: content.name
+                            content:"testing" // wip
                         }
                     }
                 ],
-                type: [
-                    {
-                        text: {
-                            content: content.type
-                        }
-                    }
-                ],
-                kind: [
-                    {
-                        text: {
-                            content: content.kind
-                        }
-                    }
-                ]
+                // type: [
+                //     {
+                //         text: {
+                //             content: content.type
+                //         }
+                //     }
+                // ],
+                // kind: [
+                //     {
+                //         text: {
+                //             content: content.kind
+                //         }
+                //     }
+                // ]
             }
         });
 

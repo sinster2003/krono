@@ -19,11 +19,13 @@ const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children
     try {
         if(pathName.split("/").pop() !== "undefined") {
             const flow = await createNodesEdges(
-                JSON.stringify(pathName.split("/").pop()),
+                pathName.split("/").pop() || "",
                 JSON.stringify(nodes),
                 JSON.stringify(edges),
                 JSON.stringify(isFlowPath)
             );
+
+            console.log(nodes, edges);
 
             console.log(flow);
         }

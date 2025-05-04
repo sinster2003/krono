@@ -206,8 +206,8 @@ const EditorCanvas = () => {
                         <div className="p-4">
                             {/* Right panel content */}
                             <FlowInstance
-                                nodes={nodes}
-                                edges={edges}
+                                nodes={editor.nodes}
+                                edges={editor.edges}
                                 setNodes={setNodes}
                                 setEdges={setEdges}
                             >
