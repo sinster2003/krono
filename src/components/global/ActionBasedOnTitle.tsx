@@ -7,6 +7,7 @@ import { Input } from "../ui/input";
 import GoogleFileDetails from "./GoogleFileDetails";
 import GoogleDriveFiles from "./GoogleDriveFiles";
 import ActionButton from "./ActionButton";
+import { Shield, MessageSquare, Database, FileText } from "lucide-react";
 
 export const nodeMapper = {
     "Google Drive": "googleNode",
@@ -16,6 +17,21 @@ export const nodeMapper = {
 }
 
 type titleType = keyof typeof nodeMapper;
+
+const getServiceIcon = (title: titleType) => {
+    switch (title) {
+        case "Google Drive":
+            return <FileText className="text-primary size-5" />;
+        case "Slack":
+            return <MessageSquare className="text-primary size-5" />;
+        case "Notion":
+            return <Database className="text-primary size-5" />;
+        case "Discord":
+            return <Shield className="text-primary size-5" />;
+        default:
+            return null;
+    }
+};
 
 const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, selectedSlackChannels, setSelectedSlackChannels }: { state: EditorState, nodeConnection: ConnectionState, googleFile: any, setGoogleFile: (googleFile: any) => void, selectedSlackChannels: Option[], setSelectedSlackChannels: (channels: Option[]) => void }) => {
     const { selectedNode } = state;
@@ -27,7 +43,11 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
     const nodeConnectionType = (nodeConnection as any)[nodeMapper[title]];
 
     if (!nodeConnectionType) {
-        return <p>Not connected</p>
+        return (
+            <div className="flex items-center justify-center p-8">
+                <p className="text-muted-foreground">Not connected</p>
+            </div>
+        );
     }
 
     // check if connection token is there or not
@@ -47,20 +67,30 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
     }
 
     if(!isConnected) {
-        return <p>Not connected</p>
+        return (
+            <div className="flex items-center justify-center p-8">
+                <p className="text-muted-foreground">Not connected</p>
+            </div>
+        );
     }
 
     return (
         <AccordionContent>
-            <Card>
+            <Card className="bg-background/50 border-border/50">
                 {title === "Discord" && 
-                    <CardHeader>
-                        <CardTitle>{nodeConnectionType.webhookURL}</CardTitle>
-                        <CardDescription>{nodeConnectionType.guildName}</CardDescription>
+                    <CardHeader className="space-y-2">
+                        <div className="flex items-center gap-2">
+                            {getServiceIcon(title)}
+                            <CardTitle className="text-lg">{nodeConnectionType.webhookURL}</CardTitle>
+                        </div>
+                        <CardDescription className="text-muted-foreground">{nodeConnectionType.guildName}</CardDescription>
                     </CardHeader>
                 }
-                <div>
-                    <p className="text-center">{title === "Notion" ? "Values To Be Stored" : "Message"}</p>
+                <div className="p-6 space-y-6">
+                    <div className="flex items-center gap-2">
+                        {getServiceIcon(title)}
+                        <p className="text-lg font-medium">{title === "Notion" ? "Values To Be Stored" : title === "Google Drive" ? "Listener" : "Message"}</p>
+                    </div>
                     {title === "Discord" || title === "Slack" && (
                         <Input
                             type="text"
@@ -79,17 +109,20 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
                                     });
                                 }
                             }}
+                            className="bg-background/50 border-border/50 focus:ring-primary/20"
+                            placeholder={`Enter your ${title.toLowerCase()} message...`}
                         />
                     )}
-                    {/* when the title is not google drive, and google file is not empty */}
-                    {/* wip: styling */}
                     {
                         JSON.stringify(googleFile) !== "{}" && title !== "Google Drive" && (
-                            <Card>
-                                <CardContent>
-                                    <div>
-                                        <CardDescription>Drive File</CardDescription>
-                                        <div>
+                            <Card className="bg-background/30 border-border/30">
+                                <CardContent className="p-4">
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-2">
+                                            <FileText className="text-primary size-4" />
+                                            <CardDescription className="text-muted-foreground">Drive File</CardDescription>
+                                        </div>
+                                        <div className="pl-6">
                                             <GoogleFileDetails
                                                 gFile={googleFile}
                                                 title={title}
@@ -107,12 +140,14 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
                         )
                     }
 
-                    <ActionButton
-                        currentService={title}
-                        nodeConnection={nodeConnection}
-                        channels={selectedSlackChannels}
-                        setChannels={setSelectedSlackChannels}
-                    />
+                    <div className="flex gap-4">
+                        <ActionButton
+                            currentService={title}
+                            nodeConnection={nodeConnection}
+                            channels={selectedSlackChannels}
+                            setChannels={setSelectedSlackChannels}
+                        />
+                    </div>
                 </div>
             </Card>
         </AccordionContent>

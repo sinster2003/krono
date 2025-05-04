@@ -5,6 +5,7 @@ import ThemeProvider from "@/providers/ThemeProvider";
 import ModeToggle from "@/components/ui/ModeToggle";
 import ClerkProvider from "@/providers/ClerkProvider";
 import UserButtonContainer from "@/components/ui/UserButtonContainer";
+import { Toaster } from "sonner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
             {children}
             <UserButtonContainer/>
             <ModeToggle />
+            <Toaster richColors position="top-right" />
           </ThemeProvider>
         </body>
       </html>

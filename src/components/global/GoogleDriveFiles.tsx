@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import googleDriveAction from "@/actions/google-drive-action";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 // wip: may need change in logic
 
@@ -17,12 +18,13 @@ const GoogleDriveFiles = () => {
         setIsLoading(true);
         const response = await axios.get("/api/drive-activity");
         if(response) {
-            // add a toast
+            toast.success("Successfully started listening to file changes");
             setIsListening(true);
         }
     }
     catch(error) {
         console.log(error);
+        toast.error("Failed to start listening to file changes");
     }
     finally {
         setIsLoading(false);
@@ -33,6 +35,7 @@ const GoogleDriveFiles = () => {
     try {
         const isUserFound = await googleDriveAction();
         if(!isUserFound) {
+            toast.error("User not found");
             return;
         }
 
@@ -46,6 +49,7 @@ const GoogleDriveFiles = () => {
     }
     catch(error) {
         console.log(error);
+        toast.error("Failed to initialize Google Drive listener");
     }
   }
 

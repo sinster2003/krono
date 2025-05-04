@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import useStore from "@/store";
 import { DrawerFooter } from "../ui/drawer";
 import { onCreateWorkflow } from "@/actions/on-create-workflow";
+import { toast } from "sonner";
 
 const DrawerForm = () => {
     const { setModalData, setModalClose } = useStore();
@@ -26,15 +27,16 @@ const DrawerForm = () => {
             setModalData(data);
             const workflow = await onCreateWorkflow(data);
             if(!workflow) {
-                // toast.error("Failed to create workflow"); wip
+                toast.error("Failed to create workflow");
                 return;
             }
 
-            // toast.success("Workflow created successfully");
+            toast.success("Workflow created successfully");
             setModalClose();
         }
         catch (error) {
             console.log(error);
+            toast.error("Failed to create workflow");
         }
     }
 

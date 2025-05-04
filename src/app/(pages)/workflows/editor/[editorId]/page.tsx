@@ -8,7 +8,7 @@ const EditorPage = async ({ params }: any) => {
         return (
             // editor provider providers state for nodes and edges of the workflow
             // connections provider providers states for connections like discord, google drive, slack and notion
-            <EditorCanvas />
+            <EditorCanvas editorId={editorId} />
         )
     }
     catch (error) {

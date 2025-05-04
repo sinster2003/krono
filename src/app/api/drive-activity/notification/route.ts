@@ -24,6 +24,7 @@ export async function POST() {
             })
 
             if (user) {
+                // get all workflows for the user - wip - works only for one trigger
                 const workflow = await db.workflow.findMany({
                     where: {
                         userId: user.clerkId,
@@ -32,10 +33,17 @@ export async function POST() {
 
                 if (workflow) {
                     workflow.map(async (flow) => {
-                        const flowPath = JSON.parse(flow.flowPath!)
+                        console.log("Flow", flow, flow.flowPath);
+
+                        // wip publish only
+                        const flowPath = JSON.parse(flow.flowPath!);
+
+                        console.log("Flow path parsed", flowPath);
+
                         let current = 0
                         while (current < flowPath.length) {
-                            if (flowPath[current] === 'Discord') {
+                            console.log("Current", current, flowPath[current]);
+                            if (flowPath[current] === 'discord') {
                                 const discordMessage = await db.discordWebhook.findFirst({
                                     where: {
                                         userId: flow.userId,
@@ -50,17 +58,18 @@ export async function POST() {
                                 }
                             }
 
-                            if (flowPath[current] === 'Slack') {
-                                const channels = flow.slackChannels.map((channel) => ({
+                            if (flowPath[current] === 'slack') {
+                                const parsedChannels = JSON.parse(flow.slackChannels!);
+                                const channels = parsedChannels.map((channel: string) => ({
                                     label: '',
                                     value: channel,
                                 }))
-                                console.log("Slack here")
+                                console.log("Slack here", parsedChannels, channels);
                                 await postMessageToSlack(flow.slackAccessToken!, channels, flow.slackTemplate!)
                                 flowPath.splice(current, 1)
                             }
 
-                            if (flowPath[current] === 'Notion') {
+                            if (flowPath[current] === 'notion') {
                                 await onCreateNewPageInDatabase(
                                     flow.notionDbId!,
                                     flow.notionAccessToken!,

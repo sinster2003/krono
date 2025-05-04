@@ -10,11 +10,12 @@ import '@xyflow/react/dist/style.css'
 import FlowInstance from "./FlowInstance";
 import EditorCanvasSidebar from "./EditorCanvasSidebar";
 import { EditorCanvasCards } from "@/lib/constants";
+import { getWorkflowFromDB } from "@/actions/get-workflow-db";
 
 const initialNodes: EditorNode[] = [];;
 const initialEdges: EditorEdge[] = [];
 
-const EditorCanvas = () => {
+const EditorCanvas = ({ editorId }: { editorId: string }) => {
     const editor = useEditor();
     const [nodes, setNodes] = useState<EditorNode[]>(initialNodes);
     const [edges, setEdges] = useState<EditorEdge[]>(initialEdges);
@@ -36,7 +37,7 @@ const EditorCanvas = () => {
         // check if the node already exists, if yes do not add it again
         const isNodeExist = nodes.some((node) => node.type === type);
 
-        if(isNodeExist) {
+        if (isNodeExist) {
             return;
         }
 
@@ -111,6 +112,29 @@ const EditorCanvas = () => {
     }), []);
 
     // as nodes and edges change keep updating the global state
+    useEffect(() => {
+        async function getWorkflow() {
+            // db call
+            try {
+                const { nodes, edges } = await getWorkflowFromDB(editorId);
+                if (!nodes || !edges) {
+                    return;
+                }
+
+                const parsedNodes = typeof nodes === "string" ? JSON.parse(nodes) : nodes;
+                const parsedEdges = typeof edges === "string" ? JSON.parse(edges) : edges;
+
+                setNodes(parsedNodes);
+                setEdges(parsedEdges);
+            }
+            catch (error) {
+                console.log("Error getting workflow from db", error);
+            }
+        }
+
+        getWorkflow();
+    }, []);
+
     useEffect(() => {
         editor.loadEditor(nodes, edges);
         setIsWorkflowLoading(false);

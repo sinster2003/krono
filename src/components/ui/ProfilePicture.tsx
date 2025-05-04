@@ -10,6 +10,7 @@ import { fetchUserImage } from '@/actions/fetch-image';
 import { useUser } from '@clerk/nextjs';
 import { removeImage } from '@/actions/remove-image';
 import { addImage } from '@/actions/add-image';
+import { toast } from 'sonner';
 
 const ProfilePicture = () => {
   const { theme } = useTheme();
@@ -28,7 +29,7 @@ const ProfilePicture = () => {
       } 
       catch (error) {
         console.log(error);
-        // toast
+        toast.error("Failed to fetch profile picture");
       }
     }
 
@@ -44,14 +45,13 @@ const ProfilePicture = () => {
             // remove from uploadcare if uploaded
             // removeUploadCareImage() -> use api
 
-            // successful toast
-            console.log(isRemoved);
+            toast.success("Profile picture removed successfully");
             setUserImage(null);
         }
     }
     catch(error) {
         console.log(error);
-        // unsuccessful toast
+        toast.error("Failed to remove profile picture");
     }
   }
 
@@ -90,20 +90,20 @@ const ProfilePicture = () => {
                         // server action to add image into db
                         const isAdded = await addImage(user?.id || "", e.allEntries?.[0].cdnUrl);
                         if(isAdded) {
-                            // successful toast
-                            setUserImage(e.allEntries?.[0].cdnUrl);
+                          setUserImage(e.allEntries?.[0].cdnUrl);
+                          toast.success("Profile picture uploaded successfully");
                         }
                         else {
-                            // unsuccesful toast
+                            toast.error("Failed to upload profile picture");
                         }
                     }
                     else {
-                        // unsuccessful toast
+                        toast.error("Failed to upload profile picture");
                     }
                 }
                 catch(error) {
                     console.log(error);
-                    // unsuccessful toast
+                    toast.error("Failed to upload profile picture");
                 }
             }}
         />

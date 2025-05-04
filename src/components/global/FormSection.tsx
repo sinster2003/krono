@@ -11,6 +11,7 @@ import ProfilePicture from "@/components/ui/ProfilePicture";
 import { useUser } from "@clerk/nextjs"
 import { useEffect, useState } from "react"
 import { updateProfile } from "@/actions/update-profile"
+import { toast } from "sonner"
 
 const FormSection = () => {
     const { user, isLoaded } =  useUser();
@@ -39,12 +40,12 @@ const FormSection = () => {
             const isUpdated = await updateProfile(user?.id || "", data);
 
             if(isUpdated) {
-                // successful toast
+                toast.success("Profile updated successfully");
             }
         }
         catch(error) {
             console.log(error);
-            // unsuccessful toast
+            toast.error("Failed to update profile");
         }
         finally {
             setIsSaving(false);

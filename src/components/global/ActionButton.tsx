@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { onCreateNodeTemplate } from "@/actions/on-create-node-template";
 import { onCreateNewPageInDatabase } from "@/actions/on-create-new-page-database";
 import { postMessageToSlack } from "@/actions/slack-connection";
+import { toast } from "sonner";
 
 const ActionButton = ({ currentService, nodeConnection, channels, setChannels }: { currentService: string, nodeConnection: ConnectionState, channels: Option[], setChannels: (channels: Option[]) => void }) => {
     const pathName = usePathname();
@@ -15,6 +16,7 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
     const onSendDiscordMessage = useCallback(async () => {
         try {
             if (nodeConnection.discordNode.content === "") {
+                toast.error("Please enter a message to send");
                 return;
             }
 
@@ -28,10 +30,12 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
                     ...nodeConnection.discordNode,
                     content: ""
                 });
+                toast.success("Message sent successfully to Discord");
             }
         }
         catch (error) {
             console.log("Failed to send message to discord", error);
+            toast.error("Failed to send message to Discord");
         }
     }, [nodeConnection.discordNode]);
 
@@ -53,10 +57,12 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
                         type: ""
                     }
                 })
+                toast.success("Content stored successfully in Notion");
             }
         }
         catch (error) {
             console.log(error);
+            toast.error("Failed to store content in Notion");
         }
     }, [nodeConnection.notionNode]);
 
@@ -70,18 +76,19 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
               )
 
             if (response.message == "Success") {
-                // toast.success('Message sent successfully') wip add a toast
+                toast.success('Message sent successfully')
                 nodeConnection.setSlackNode({
                   ...nodeConnection.slackNode,
                   content: "",
                 });
                 setChannels!([]) // set slack channels to empty after sending a message
             } else {
-                // toast.error(response.message) wip add a toast
+                toast.error(response.message);
             }
         }
         catch (error) {
             console.log(error);
+            toast.error("Failed to send message to Slack");
         }
     }, [nodeConnection.slackNode]);
 
@@ -96,7 +103,7 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
                 );
 
                 if (response) {
-                    // add a toast
+                    toast.success("Discord template saved successfully");
                 }
             }
 
@@ -110,7 +117,7 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
                 );
 
                 if (response) {
-                    // add a toast
+                    toast.success("Slack template saved successfully");
                 }
             }
 
@@ -125,12 +132,13 @@ const ActionButton = ({ currentService, nodeConnection, channels, setChannels }:
                 );
 
                 if (response) {
-                    // add a toast
+                    toast.success("Notion template saved successfully");
                 }
             }
         }
         catch (error) {
             console.log(error);
+            toast.error("Failed to save template");
         }
     }, [nodeConnection, channels]);
 

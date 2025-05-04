@@ -11,6 +11,7 @@ export const onCreateNodeTemplate = async (
     accessToken?: string,
     notionDbId?: string
 ) => {
+    console.log("channels from frontend", channels);
     // discord workflow template
     if (type === "Discord") {
         try {
@@ -25,7 +26,7 @@ export const onCreateNodeTemplate = async (
 
             if (response) {
                 return 'Discord template saved'
-            } 
+            }
         }
         catch (error) {
             console.log("Discord node template not created", error);
@@ -46,7 +47,7 @@ export const onCreateNodeTemplate = async (
                 }
             });
 
-            if(response) {
+            if (response) {
                 return "Notion template saved";
             }
         }
@@ -69,37 +70,27 @@ export const onCreateNodeTemplate = async (
             })
 
             if (response) {
-                const channelList = await db.workflow.findUnique({
+                const ifUpdated = await db.workflow.update({
                     where: {
                         id: workflowId,
                     },
-                    select: {
-                        slackChannels: true,
-                    },
-                });
+                    data: {
+                        slackChannels: JSON.stringify([])
+                    }
+                })
 
-                if (channelList) {
-                    //remove duplicates before insert
-                    const NonDuplicated = channelList.slackChannels.filter(
-                        (channel) => channel !== channels![0].value
-                    )
+                if (ifUpdated) {
+                    // wip - reveret if needed
+                    const channelList = channels?.map(channel => channel.value);
 
-                    NonDuplicated!
-                        .map((channel) => channel)
-                        .forEach(async (channel) => {
-                            await db.workflow.update({
-                                where: {
-                                    id: workflowId,
-                                },
-                                data: {
-                                    slackChannels: {
-                                        push: channel,
-                                    },
-                                },
-                            })
-                        })
-
-                    return "Slack template saved";
+                    await db.workflow.update({
+                        where: {
+                            id: workflowId,
+                        },
+                        data: {
+                            slackChannels: JSON.stringify(channelList)
+                        }
+                    })
                 }
             }
         }

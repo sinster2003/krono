@@ -98,6 +98,7 @@ const postMessageInSlackChannel = async (
     content: string
 ): Promise<void> => {
     try {
+        console.log("Message channel", slackChannel, content);
         await axios.post(
             "https://slack.com/api/chat.postMessage",
             { channel: slackChannel, text: content },
@@ -126,6 +127,8 @@ export const postMessageToSlack = async (
     try {
     if (!content) return { message: "Content is empty" }
     if (!selectedSlackChannels?.length) return { message: "Channel not selected" }
+    
+    console.log("Selected slack channels", selectedSlackChannels);
 
     try {
         selectedSlackChannels

@@ -7268,6 +7268,7 @@ export namespace Prisma {
     discordTemplate: string | null
     notionTemplate: string | null
     slackTemplate: string | null
+    slackChannels: string | null
     slackAccessToken: string | null
     notionAccessToken: string | null
     notionDbId: string | null
@@ -7285,6 +7286,7 @@ export namespace Prisma {
     discordTemplate: string | null
     notionTemplate: string | null
     slackTemplate: string | null
+    slackChannels: string | null
     slackAccessToken: string | null
     notionAccessToken: string | null
     notionDbId: string | null
@@ -7322,6 +7324,7 @@ export namespace Prisma {
     discordTemplate?: true
     notionTemplate?: true
     slackTemplate?: true
+    slackChannels?: true
     slackAccessToken?: true
     notionAccessToken?: true
     notionDbId?: true
@@ -7339,6 +7342,7 @@ export namespace Prisma {
     discordTemplate?: true
     notionTemplate?: true
     slackTemplate?: true
+    slackChannels?: true
     slackAccessToken?: true
     notionAccessToken?: true
     notionDbId?: true
@@ -7447,7 +7451,7 @@ export namespace Prisma {
     discordTemplate: string | null
     notionTemplate: string | null
     slackTemplate: string | null
-    slackChannels: string[]
+    slackChannels: string | null
     slackAccessToken: string | null
     notionAccessToken: string | null
     notionDbId: string | null
@@ -7573,7 +7577,7 @@ export namespace Prisma {
       discordTemplate: string | null
       notionTemplate: string | null
       slackTemplate: string | null
-      slackChannels: string[]
+      slackChannels: string | null
       slackAccessToken: string | null
       notionAccessToken: string | null
       notionDbId: string | null
@@ -8012,7 +8016,7 @@ export namespace Prisma {
     readonly discordTemplate: FieldRef<"Workflow", 'String'>
     readonly notionTemplate: FieldRef<"Workflow", 'String'>
     readonly slackTemplate: FieldRef<"Workflow", 'String'>
-    readonly slackChannels: FieldRef<"Workflow", 'String[]'>
+    readonly slackChannels: FieldRef<"Workflow", 'String'>
     readonly slackAccessToken: FieldRef<"Workflow", 'String'>
     readonly notionAccessToken: FieldRef<"Workflow", 'String'>
     readonly notionDbId: FieldRef<"Workflow", 'String'>
@@ -9006,7 +9010,7 @@ export namespace Prisma {
     discordTemplate?: StringNullableFilter<"Workflow"> | string | null
     notionTemplate?: StringNullableFilter<"Workflow"> | string | null
     slackTemplate?: StringNullableFilter<"Workflow"> | string | null
-    slackChannels?: StringNullableListFilter<"Workflow">
+    slackChannels?: StringNullableFilter<"Workflow"> | string | null
     slackAccessToken?: StringNullableFilter<"Workflow"> | string | null
     notionAccessToken?: StringNullableFilter<"Workflow"> | string | null
     notionDbId?: StringNullableFilter<"Workflow"> | string | null
@@ -9025,7 +9029,7 @@ export namespace Prisma {
     discordTemplate?: SortOrderInput | SortOrder
     notionTemplate?: SortOrderInput | SortOrder
     slackTemplate?: SortOrderInput | SortOrder
-    slackChannels?: SortOrder
+    slackChannels?: SortOrderInput | SortOrder
     slackAccessToken?: SortOrderInput | SortOrder
     notionAccessToken?: SortOrderInput | SortOrder
     notionDbId?: SortOrderInput | SortOrder
@@ -9047,7 +9051,7 @@ export namespace Prisma {
     discordTemplate?: StringNullableFilter<"Workflow"> | string | null
     notionTemplate?: StringNullableFilter<"Workflow"> | string | null
     slackTemplate?: StringNullableFilter<"Workflow"> | string | null
-    slackChannels?: StringNullableListFilter<"Workflow">
+    slackChannels?: StringNullableFilter<"Workflow"> | string | null
     slackAccessToken?: StringNullableFilter<"Workflow"> | string | null
     notionAccessToken?: StringNullableFilter<"Workflow"> | string | null
     notionDbId?: StringNullableFilter<"Workflow"> | string | null
@@ -9066,7 +9070,7 @@ export namespace Prisma {
     discordTemplate?: SortOrderInput | SortOrder
     notionTemplate?: SortOrderInput | SortOrder
     slackTemplate?: SortOrderInput | SortOrder
-    slackChannels?: SortOrder
+    slackChannels?: SortOrderInput | SortOrder
     slackAccessToken?: SortOrderInput | SortOrder
     notionAccessToken?: SortOrderInput | SortOrder
     notionDbId?: SortOrderInput | SortOrder
@@ -9090,7 +9094,7 @@ export namespace Prisma {
     discordTemplate?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
     notionTemplate?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
     slackTemplate?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
-    slackChannels?: StringNullableListFilter<"Workflow">
+    slackChannels?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
     slackAccessToken?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
     notionAccessToken?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
     notionDbId?: StringNullableWithAggregatesFilter<"Workflow"> | string | null
@@ -9511,7 +9515,7 @@ export namespace Prisma {
     discordTemplate?: string | null
     notionTemplate?: string | null
     slackTemplate?: string | null
-    slackChannels?: WorkflowCreateslackChannelsInput | string[]
+    slackChannels?: string | null
     slackAccessToken?: string | null
     notionAccessToken?: string | null
     notionDbId?: string | null
@@ -9529,7 +9533,7 @@ export namespace Prisma {
     discordTemplate?: string | null
     notionTemplate?: string | null
     slackTemplate?: string | null
-    slackChannels?: WorkflowCreateslackChannelsInput | string[]
+    slackChannels?: string | null
     slackAccessToken?: string | null
     notionAccessToken?: string | null
     notionDbId?: string | null
@@ -9547,7 +9551,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9565,7 +9569,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9583,7 +9587,7 @@ export namespace Prisma {
     discordTemplate?: string | null
     notionTemplate?: string | null
     slackTemplate?: string | null
-    slackChannels?: WorkflowCreateslackChannelsInput | string[]
+    slackChannels?: string | null
     slackAccessToken?: string | null
     notionAccessToken?: string | null
     notionDbId?: string | null
@@ -9601,7 +9605,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9618,7 +9622,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9961,14 +9965,6 @@ export namespace Prisma {
     slackId?: SortOrder
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -10000,6 +9996,7 @@ export namespace Prisma {
     discordTemplate?: SortOrder
     notionTemplate?: SortOrder
     slackTemplate?: SortOrder
+    slackChannels?: SortOrder
     slackAccessToken?: SortOrder
     notionAccessToken?: SortOrder
     notionDbId?: SortOrder
@@ -10017,6 +10014,7 @@ export namespace Prisma {
     discordTemplate?: SortOrder
     notionTemplate?: SortOrder
     slackTemplate?: SortOrder
+    slackChannels?: SortOrder
     slackAccessToken?: SortOrder
     notionAccessToken?: SortOrder
     notionDbId?: SortOrder
@@ -10486,19 +10484,10 @@ export namespace Prisma {
     update?: XOR<XOR<SlackUpdateToOneWithWhereWithoutConnectionsInput, SlackUpdateWithoutConnectionsInput>, SlackUncheckedUpdateWithoutConnectionsInput>
   }
 
-  export type WorkflowCreateslackChannelsInput = {
-    set: string[]
-  }
-
   export type UserCreateNestedOneWithoutWorkflowsInput = {
     create?: XOR<UserCreateWithoutWorkflowsInput, UserUncheckedCreateWithoutWorkflowsInput>
     connectOrCreate?: UserCreateOrConnectWithoutWorkflowsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type WorkflowUpdateslackChannelsInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
@@ -10643,7 +10632,7 @@ export namespace Prisma {
     discordTemplate?: string | null
     notionTemplate?: string | null
     slackTemplate?: string | null
-    slackChannels?: WorkflowCreateslackChannelsInput | string[]
+    slackChannels?: string | null
     slackAccessToken?: string | null
     notionAccessToken?: string | null
     notionDbId?: string | null
@@ -10660,7 +10649,7 @@ export namespace Prisma {
     discordTemplate?: string | null
     notionTemplate?: string | null
     slackTemplate?: string | null
-    slackChannels?: WorkflowCreateslackChannelsInput | string[]
+    slackChannels?: string | null
     slackAccessToken?: string | null
     notionAccessToken?: string | null
     notionDbId?: string | null
@@ -10828,7 +10817,7 @@ export namespace Prisma {
     discordTemplate?: StringNullableFilter<"Workflow"> | string | null
     notionTemplate?: StringNullableFilter<"Workflow"> | string | null
     slackTemplate?: StringNullableFilter<"Workflow"> | string | null
-    slackChannels?: StringNullableListFilter<"Workflow">
+    slackChannels?: StringNullableFilter<"Workflow"> | string | null
     slackAccessToken?: StringNullableFilter<"Workflow"> | string | null
     notionAccessToken?: StringNullableFilter<"Workflow"> | string | null
     notionDbId?: StringNullableFilter<"Workflow"> | string | null
@@ -11670,7 +11659,7 @@ export namespace Prisma {
     discordTemplate?: string | null
     notionTemplate?: string | null
     slackTemplate?: string | null
-    slackChannels?: WorkflowCreateslackChannelsInput | string[]
+    slackChannels?: string | null
     slackAccessToken?: string | null
     notionAccessToken?: string | null
     notionDbId?: string | null
@@ -11725,7 +11714,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11742,7 +11731,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11759,7 +11748,7 @@ export namespace Prisma {
     discordTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     notionTemplate?: NullableStringFieldUpdateOperationsInput | string | null
     slackTemplate?: NullableStringFieldUpdateOperationsInput | string | null
-    slackChannels?: WorkflowUpdateslackChannelsInput | string[]
+    slackChannels?: NullableStringFieldUpdateOperationsInput | string | null
     slackAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
     notionDbId?: NullableStringFieldUpdateOperationsInput | string | null

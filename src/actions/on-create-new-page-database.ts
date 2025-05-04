@@ -20,7 +20,7 @@ export const onCreateNewPageInDatabase = async (databaseId: string, accessToken:
                 name: [
                     {
                         text: {
-                            content:"testing" // wip
+                            content // wip
                         }
                     }
                 ],
