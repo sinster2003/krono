@@ -17,7 +17,7 @@ const EditorCanvasSidebar = ({ nodes }: { nodes: EditorNode[] }) => {
                 <TabsContent value="actions" className="mt-4 space-y-4">
                     {
                         // map through the cards and filter them based on type
-                        Object.entries(EditorCanvasCards).filter(([key, card]) =>
+                        Object.entries(EditorCanvasCards).filter(([_, card]) =>
                             // if there are no nodes in the canvas then only show triggers
                             !nodes.length && card.type === "Trigger" ||
                             // if there are nodes in the canvas then only show actions

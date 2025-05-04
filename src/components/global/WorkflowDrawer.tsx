@@ -2,19 +2,16 @@
 
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
     DrawerDescription,
-    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
 } from "@/components/ui/drawer"
-import { Button } from "../ui/button";
 import useStore from "@/store";
 import DrawerForm from "./DrawerForm";
 
 const WorkflowDrawer = () => {
-    const { isOpen, setModalClose } = useStore();
+    const { isOpen } = useStore();
 
     return (
         <Drawer

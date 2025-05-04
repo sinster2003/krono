@@ -5,7 +5,6 @@ import '@uploadcare/react-uploader/core.css';
 import { useTheme } from 'next-themes';
 import { Button } from './button';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { fetchUserImage } from '@/actions/fetch-image';
 import { useUser } from '@clerk/nextjs';

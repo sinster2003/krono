@@ -3,11 +3,9 @@ import { postContentToWebHook } from '@/actions/discord-connection'
 import { onCreateNewPageInDatabase } from '@/actions/on-create-new-page-database'
 import { postMessageToSlack } from '@/actions/slack-connection'
 import db from '@/lib/db'
-import axios from 'axios'
 import { headers } from 'next/headers'
-import { NextRequest } from 'next/server'
 
-export async function POST(req: NextRequest) {
+export async function POST() {
     try {
         const headersList = await headers()
         let channelResourceId

@@ -4,6 +4,7 @@ import { Client } from "@notionhq/client";
 
 export const onCreateNewPageInDatabase = async (databaseId: string, accessToken: string, content: any) => {
     try {
+        console.log(content);
         const notion = new Client({
             auth: accessToken
         });

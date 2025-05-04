@@ -1,7 +1,7 @@
 "use client"
 
 import useEditor from "@/store/useEditor"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
+import { Accordion, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { ConnectionsList } from "@/lib/constants";
 import RenderConnectionAccordion from "./RenderConnectionAccordion";
 import RenderOutputAccordion from "./RenderOutputAccordion";

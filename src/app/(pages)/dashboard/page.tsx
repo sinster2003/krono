@@ -10,7 +10,7 @@ const Dashboard = () => {
           <header className="flex items-center justify-between mb-8">
             <div>
               <h1 className="text-3xl font-bold mb-1">Dashboard</h1>
-              <p className="text-muted-foreground">Welcome back, here's what's happening today.</p>
+              <p className="text-muted-foreground">Welcome back, here&apos;s what&apos;s happening today.</p>
             </div>
           </header>
 

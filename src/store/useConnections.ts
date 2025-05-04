@@ -9,7 +9,7 @@ export type ConnectionProviderProps = {
         content: string;
     };
 
-    googleNode: {}[];
+    googleNode: any[];
 
     // wip: types
     notionNode: {

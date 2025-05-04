@@ -21,6 +21,8 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
     const { selectedNode } = state;
     const title = selectedNode?.data.title as titleType;
 
+    console.log(setGoogleFile);
+
     // check for the node connection type info
     const nodeConnectionType = (nodeConnection as any)[nodeMapper[title]];
 

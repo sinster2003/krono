@@ -86,7 +86,7 @@ export const getSlackConnectionUrl = async () => {
     }
     catch (error) {
         console.log(error);
-        false;
+        return false;
     }
 }
 
@@ -134,6 +134,7 @@ export const postMessageToSlack = async (
                 postMessageInSlackChannel(slackAccessToken, channel, content)
             })
     } catch (error) {
+        console.log(error);
         return { message: "Message could not be sent to Slack" }
     }
 

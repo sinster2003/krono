@@ -77,7 +77,7 @@ const EditorCanvas = () => {
     // when nodes change, apply the changes to the nodes
     const onNodesChange = useCallback(
         (changes: NodeChange[]) => {
-            //@ts-ignore
+            //@ts-expect-error
             setNodes((nds) => applyNodeChanges(changes, nds))
         },
         [setNodes]
@@ -86,7 +86,6 @@ const EditorCanvas = () => {
     // when edges change, apply the changes to the edges
     const onEdgesChange = useCallback(
         (changes: EdgeChange[]) =>
-            //@ts-ignore
             setEdges((eds) => applyEdgeChanges(changes, eds)),
         [setEdges]
     )
@@ -114,6 +113,7 @@ const EditorCanvas = () => {
     // as nodes and edges change keep updating the global state
     useEffect(() => {
         editor.loadEditor(nodes, edges);
+        setIsWorkflowLoading(false);
     }, [nodes, edges]);
 
     return (
@@ -169,7 +169,7 @@ const EditorCanvas = () => {
                                         zoomable
                                     />
                                     <Background
-                                        //@ts-ignore
+                                        //@ts-expect-error
                                         variant="dots"
                                         gap={12}
                                         size={1}

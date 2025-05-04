@@ -25,7 +25,7 @@ export default clerkMiddleware(async (auth, req) => {
         return NextResponse.next();
     }
     catch(error) {
-        console.error("User not signed in");
+        console.error("User not signed in", error);
         return NextResponse.redirect(new URL('/', req.url));
     }
 });

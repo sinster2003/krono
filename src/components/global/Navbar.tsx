@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { LayoutDashboard, LogInIcon, MenuIcon, Settings, Star } from 'lucide-react';
+import { LayoutDashboard, LogInIcon, MenuIcon, Settings } from 'lucide-react';
 import { ReactNode } from "react";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 
