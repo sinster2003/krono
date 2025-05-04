@@ -1,7 +1,7 @@
 import EditorCanvas from '@/components/global/EditorCanvas';
 import React from 'react'
 
-const EditorPage = async ({ params }: { params: { editorId: string } }) => {
+const EditorPage = async ({ params }: any) => {
     try {
         const { editorId } = await params;
         console.log(editorId);
