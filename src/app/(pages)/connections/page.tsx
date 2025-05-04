@@ -7,7 +7,7 @@ import { onNotionConnect } from "@/actions/notion-connection";
 import { onSlackConnect } from "@/actions/slack-connection";
 import { getUserData } from "@/actions/get-user-data";
 
-const Connections = async ({ searchParams }: { searchParams: { [key: string]: string } }) => {
+const Connections = async ({ searchParams }: any ) => {
     try {
         const user = await currentUser();
         console.log(user);
