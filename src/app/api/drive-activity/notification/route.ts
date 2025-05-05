@@ -33,6 +33,7 @@ export async function POST() {
 
                 if (workflow) {
                     workflow.map(async (flow) => {
+                        if(flow.publish) {
                         console.log("Flow", flow, flow.flowPath);
 
                         // wip publish only
@@ -80,8 +81,8 @@ export async function POST() {
 
                             current++
                         }
-                    })
-
+                    }})
+                
                     return Response.json({ message: 'flow completed' }, { status: 200 })
                 }
             }

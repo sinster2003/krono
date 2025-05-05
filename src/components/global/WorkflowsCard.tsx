@@ -3,7 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Switch } from '../ui/switch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import publishWorkflow from '@/actions/publish-workflow';
+import getPublish from '@/actions/get-publish';
 
 interface WorkflowsCardProps {
   id: string;
@@ -15,13 +17,33 @@ const WorkflowsCard = ({ id, title, description }: WorkflowsCardProps) => {
   const [isActive, setIsActive] = useState(false);
   // wip: toggle button when clicked should publish the workflow in the database - will do when workflows are traversed
 
-  const handleSwitchToggle = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsActive(!isActive);
-    // add the API call or state management logic
-    // wire up db
-    console.log(`Workflow ${id} active state: ${!isActive}`);
+  useEffect(() => {
+    const getWorkflow = async () => {
+      try {
+        const response = await getPublish(id);
+        setIsActive(response?.publish || false);
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+
+    getWorkflow();
+  }, []);
+
+  const handleSwitchToggle = async (e: React.MouseEvent) => {
+    try {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsActive(!isActive);
+      // add the API call or state management logic
+      // wire up db
+      await publishWorkflow(id, !isActive);
+      console.log(`Workflow ${id} active state: ${!isActive}`);
+    }
+    catch(error) {
+      console.log(error);
+    }
   };
 
   return (

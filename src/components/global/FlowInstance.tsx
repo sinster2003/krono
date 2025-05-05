@@ -40,7 +40,7 @@ const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children
     try {
         if(pathName.split("/").pop() !== "undefined") {
             const response = await publishWorkflow(
-                JSON.stringify(pathName.split("/").pop()),
+                pathName.split("/").pop() || "",
                 true
             );
 
