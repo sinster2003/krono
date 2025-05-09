@@ -42,8 +42,8 @@ const GoogleDriveFiles = () => {
         const { googleResourceId } = isUserFound;
         
         if(googleResourceId) {
-            // wip
-            // const response = await axios.get(`https://www.googleapis.com/drive/v3/files/${googleResourceId}?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`);
+            // Re-establish the listener if we have a resource ID
+            // await reqGoogle();
             setIsListening(true);
         }
     }

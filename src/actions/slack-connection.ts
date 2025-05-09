@@ -125,26 +125,29 @@ export const postMessageToSlack = async (
     content: string
 ): Promise<{ message: string }> => {
     try {
-    if (!content) return { message: "Content is empty" }
-    if (!selectedSlackChannels?.length) return { message: "Channel not selected" }
-    
-    console.log("Selected slack channels", selectedSlackChannels);
+        if (!content) return { message: "Content is empty" }
+        console.log("content", content, selectedSlackChannels);
+        if (!selectedSlackChannels?.length) return { message: "Channel not selected" }
+        
+        console.log("Selected slack channels", selectedSlackChannels);
 
-    try {
-        selectedSlackChannels
-            .map((channel) => channel?.value)
-            .forEach((channel) => {
-                postMessageInSlackChannel(slackAccessToken, channel, content)
-            })
+        // Wait for all messages to be sent
+        await Promise.all(
+            selectedSlackChannels
+                .map((channel) => channel?.value)
+                .map(async (channel) => {
+                    try {
+                        await postMessageInSlackChannel(slackAccessToken, channel, content);
+                    } catch (error) {
+                        console.error(`Failed to send message to channel ${channel}:`, error);
+                        throw error; // Propagate the error
+                    }
+                })
+        );
+
+        return { message: "Success" }
     } catch (error) {
-        console.log(error);
-        return { message: "Message could not be sent to Slack" }
+        console.error("Error in postMessageToSlack:", error);
+        return { message: "Failed to send message to Slack" }
     }
-
-    return { message: "Success" }
-}
-catch(error) {
-    console.log(error);
-    return { message: "Failure"}
-} 
 }

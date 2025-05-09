@@ -37,8 +37,6 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
     const { selectedNode } = state;
     const title = selectedNode?.data.title as titleType;
 
-    console.log(setGoogleFile);
-
     // check for the node connection type info
     const nodeConnectionType = (nodeConnection as any)[nodeMapper[title]];
 
@@ -58,7 +56,7 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
     } else {
         const keyMap = {
             Slack: 'slackAccessToken',
-            Discord: 'webhookURL',
+            Discord: 'webhookUrl',
             Notion: 'accessToken',
         };
 
@@ -81,7 +79,6 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
                     <CardHeader className="space-y-2">
                         <div className="flex items-center gap-2">
                             {getServiceIcon(title)}
-                            <CardTitle className="text-lg">{nodeConnectionType.webhookURL}</CardTitle>
                         </div>
                         <CardDescription className="text-muted-foreground">{nodeConnectionType.guildName}</CardDescription>
                     </CardHeader>
@@ -91,7 +88,7 @@ const ActionBasedOnTitle = ({ state, nodeConnection, googleFile, setGoogleFile, 
                         {getServiceIcon(title)}
                         <p className="text-lg font-medium">{title === "Notion" ? "Values To Be Stored" : title === "Google Drive" ? "Listener" : "Message"}</p>
                     </div>
-                    {title === "Discord" || title === "Slack" && (
+                    {(title === "Discord" || title === "Slack") && (
                         <Input
                             type="text"
                             value={nodeConnectionType.content}

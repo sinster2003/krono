@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation"
 import publishWorkflow from "@/actions/publish-workflow"
 
 const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children: React.ReactNode, nodes: EditorNode[], edges: EditorEdge[], setNodes: (nodes: EditorNode[]) => void, setEdges: (edges: EditorEdge[]) => void }) => {
+  console.log("HereNodes", nodes, "HereEdges", edges);
   const nodeConnections = useConnections();
   const [isFlowPath, setIsFlowPath] = useState<string[]>([]);
   const pathName = usePathname();
@@ -18,22 +19,20 @@ const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children
   const onSaveWorkflow = useCallback(async () => {
     try {
         if(pathName.split("/").pop() !== "undefined") {
-            const flow = await createNodesEdges(
-                pathName.split("/").pop() || "",
-                JSON.stringify(nodes),
-                JSON.stringify(edges),
-                JSON.stringify(isFlowPath)
-            );
-
-            console.log(nodes, edges);
-
-            console.log(flow);
+            if(nodes.length > 0) {
+                await createNodesEdges(
+                    pathName.split("/").pop() || "",
+                    JSON.stringify(nodes),
+                    JSON.stringify(edges),
+                    JSON.stringify(isFlowPath)
+                );
+            }
         }
     }
     catch(error) {
         console.log(error);
     }
-  }, [nodeConnections]); // when theres a change in a node the onFlowAutomation is reinitialized so that new nodes are saved
+  }, [nodes, edges, pathName, isFlowPath]);
 
   // publish
   const onPublishWorkflow = useCallback(async () => {
@@ -50,7 +49,7 @@ const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children
     catch(error) {
         console.log(error);
     }
-  }, []);
+  }, [pathName]);
 
   // save flow path to local state which contains list of types like [discord, slack, notion]
   const onSaveFlowPath = async () => {
@@ -81,7 +80,7 @@ const FlowInstance = ({ children, nodes, edges, setNodes, setEdges }: { children
         <div className="flex gap-3 p-4">
             <Button
                 onClick={onSaveWorkflow}
-                disabled={isFlowPath.length < 1}
+                disabled={isFlowPath.length < 1 && nodes.length < 1}
                 className="text-white bg-primary"
             >
                 Save

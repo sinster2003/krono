@@ -33,6 +33,32 @@ export async function GET() {
             auth: oauth2Client,
         })
 
+        // Check if user already has a channel
+        /*
+        const user = await db.user.findFirst({
+            where: {
+                clerkId: userId,
+            },
+            select: {
+                googleResourceId: true,
+            },
+        })
+
+        // If user has an existing channel, stop
+        if (user?.googleResourceId) {
+            try {
+                await drive.channels.stop({
+                    requestBody: {
+                        id: user.googleResourceId,
+                        resourceId: user.googleResourceId,
+                    },
+                })
+            } catch (error) {
+                console.log('Error stopping existing channel:', error)
+            }
+        }
+        */
+
         const channelId = uuidv4()
 
         const startPageTokenRes = await drive.changes.getStartPageToken({})
@@ -48,14 +74,13 @@ export async function GET() {
             requestBody: {
                 id: channelId,
                 type: 'web_hook',
-                address:
-                    `${process.env.NGROK_URI}/api/drive-activity/notification`,
+                address: `${process.env.NGROK_URI}/api/drive-activity/notification`,
                 kind: 'api#channel',
             },
         })
 
-        if (listener.status == 200) {
-            //if listener created store its channel id in db
+        if (listener.status === 200) {
+            // Store the new channel ID in db
             const channelStored = await db.user.updateMany({
                 where: {
                     clerkId: userId,

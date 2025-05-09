@@ -19,7 +19,7 @@ const EditorCanvas = ({ editorId }: { editorId: string }) => {
     const editor = useEditor();
     const [nodes, setNodes] = useState<EditorNode[]>(initialNodes);
     const [edges, setEdges] = useState<EditorEdge[]>(initialEdges);
-    const [isWorkflowLoading, setIsWorkflowLoading] = useState<boolean>(false);
+    const [isWorkflowLoading, setIsWorkflowLoading] = useState<boolean>(true);
     const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance<EditorNode, EditorEdge> | null>(null);
 
     // editor handlers
@@ -113,26 +113,32 @@ const EditorCanvas = ({ editorId }: { editorId: string }) => {
 
     // as nodes and edges change keep updating the global state
     useEffect(() => {
-        async function getWorkflow() {
-            // db call
-            try {
-                const { nodes, edges } = await getWorkflowFromDB(editorId);
-                if (!nodes || !edges) {
-                    return;
+        try {
+            async function getWorkflow() {
+                // db call
+                try {
+                    const { nodes, edges } = await getWorkflowFromDB(editorId);
+                    if (!nodes || !edges) {
+                        return;
+                    }
+
+                    const parsedNodes = typeof nodes === "string" ? JSON.parse(nodes) : nodes;
+                    const parsedEdges = typeof edges === "string" ? JSON.parse(edges) : edges;
+
+                    setNodes(parsedNodes);
+                    setEdges(parsedEdges);
+                    editor.loadEditor(parsedNodes, parsedEdges);
                 }
-
-                const parsedNodes = typeof nodes === "string" ? JSON.parse(nodes) : nodes;
-                const parsedEdges = typeof edges === "string" ? JSON.parse(edges) : edges;
-
-                setNodes(parsedNodes);
-                setEdges(parsedEdges);
+                catch (error) {
+                    console.log("Error getting workflow from db", error);
+                }
             }
-            catch (error) {
-                console.log("Error getting workflow from db", error);
-            }
+
+            getWorkflow();
         }
-
-        getWorkflow();
+        catch (error) {
+            console.log(error);
+        }
     }, []);
 
     useEffect(() => {
@@ -230,8 +236,8 @@ const EditorCanvas = ({ editorId }: { editorId: string }) => {
                         <div className="p-4">
                             {/* Right panel content */}
                             <FlowInstance
-                                nodes={editor.nodes}
-                                edges={editor.edges}
+                                nodes={nodes}
+                                edges={edges}
                                 setNodes={setNodes}
                                 setEdges={setEdges}
                             >

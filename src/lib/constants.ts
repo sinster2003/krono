@@ -26,7 +26,7 @@ export const ConnectionsList = [
         description: "Connect your discord to send notification and messages",
         image: "/discord.png",
         connectionKey: 'discordNode',
-        accessTokenKey: 'webhookURL',
+        accessTokenKey: 'webhookUrl',
     },
 ]
 

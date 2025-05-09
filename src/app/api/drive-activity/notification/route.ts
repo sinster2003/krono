@@ -5,6 +5,10 @@ import { postMessageToSlack } from '@/actions/slack-connection'
 import db from '@/lib/db'
 import { headers } from 'next/headers'
 
+// Keep track of recent notifications to prevent duplicates
+const recentNotifications = new Map<string, number>();
+const DEBOUNCE_WINDOW = 5000; // 5 seconds
+
 export async function POST() {
     try {
         const headersList = await headers()
@@ -24,7 +28,26 @@ export async function POST() {
             })
 
             if (user) {
-                // get all workflows for the user - wip - works only for one trigger
+                // Check if this is a duplicate notification
+                const now = Date.now();
+                const lastNotification = recentNotifications.get(channelResourceId);
+                
+                if (lastNotification && (now - lastNotification) < DEBOUNCE_WINDOW) {
+                    // Skip this notification as it's too close to the last one
+                    return Response.json({ message: 'Duplicate notification ignored' }, { status: 200 });
+                }
+                
+                // Update the last notification time
+                recentNotifications.set(channelResourceId, now);
+
+                // Clean up old notifications
+                for (const [key, timestamp] of recentNotifications.entries()) {
+                    if (now - timestamp > DEBOUNCE_WINDOW) {
+                        recentNotifications.delete(key);
+                    }
+                }
+
+                // get all workflows for the user
                 const workflow = await db.workflow.findMany({
                     where: {
                         userId: user.clerkId,
@@ -34,16 +57,15 @@ export async function POST() {
                 if (workflow) {
                     workflow.map(async (flow) => {
                         if(flow.publish) {
-                        console.log("Flow", flow, flow.flowPath);
 
                         // wip publish only
                         const flowPath = JSON.parse(flow.flowPath!);
-
-                        console.log("Flow path parsed", flowPath);
+                        console.log("Total flowPath", flowPath);
 
                         let current = 0
                         while (current < flowPath.length) {
-                            console.log("Current", current, flowPath[current]);
+                            console.log("flowPath", flowPath);
+
                             if (flowPath[current] === 'discord') {
                                 const discordMessage = await db.discordWebhook.findFirst({
                                     where: {
@@ -65,7 +87,6 @@ export async function POST() {
                                     label: '',
                                     value: channel,
                                 }))
-                                console.log("Slack here", parsedChannels, channels);
                                 await postMessageToSlack(flow.slackAccessToken!, channels, flow.slackTemplate!)
                                 flowPath.splice(current, 1)
                             }
@@ -79,7 +100,7 @@ export async function POST() {
                                 flowPath.splice(current, 1)
                             }
 
-                            current++
+                            // current++
                         }
                     }})
                 
